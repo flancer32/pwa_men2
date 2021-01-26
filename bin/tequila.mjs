@@ -18,26 +18,22 @@ const root = $path.join(bin, '..');
 /* Create and setup DI container */
 /** @type {TeqFw_Di_Container} */
 const container = new Container();
-// add backend sources to map
-// TODO: these paths should be mapped on teq-modules loading
-const srcPrj = $path.join(root, 'src');
 const srcCore = $path.join(root, 'node_modules/@teqfw/core-app/src');
 container.addSourceMapping('TeqFw_Core_App', srcCore, true, 'mjs');
-container.addSourceMapping('Teq_User', srcCore, true, 'mjs');
-container.addSourceMapping('Fl32_Men2', srcPrj, true, 'mjs');
+
 // Manually create bootstrap configuration object (used in constructor of 'Vendor_Project_App')
-/** @type {Vendor_Project_App.Bootstrap} */
+/** @type {TeqFw_Core_App_Launcher.Bootstrap} */
 const bootstrap = {version: VERSION, root};
 container.set('bootstrap', bootstrap);
 
 /** Request Container to construction app then run it */
-container.get('Fl32_Men2_App$')
+container.get('TeqFw_Core_App_Launcher$')
     .then(
-        /**  @param {Fl32_Men2_App} app */
-        async (app) => {
+        /**  @param {TeqFw_Core_App_Launcher} launcher */
+        async (launcher) => {
             try {
-                await app.init();
-                await app.run();
+                await launcher.init();
+                await launcher.run();
             } catch (e) {
                 console.error('Cannot init or run TeqFW application.');
                 console.dir(e);
