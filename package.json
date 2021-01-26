@@ -34,9 +34,9 @@
     "node-fetch": "*",
     "sanitize-html": "*",
     "serve-static": "*",
-    "vue": "^3.0.1",
-    "vue-router": "^4.0.0-rc.3",
-    "vuex": "^4.0.0-rc.1"
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
     "jest": "*",
@@ -44,7 +44,7 @@
   },
   "teqfw": {
     "autoload": {
-      "ns": "Vendor_Project",
+      "ns": "Fl32_Men2",
       "path": "./src"
     }
   }

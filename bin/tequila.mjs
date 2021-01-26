@@ -20,20 +20,20 @@ const root = $path.join(bin, '..');
 const container = new Container();
 // add backend sources to map
 // TODO: these paths should be mapped on teq-modules loading
-const srcPrj = $path.join(root, 'node_modules/@flancer32/pwa_app/src');
+const srcPrj = $path.join(root, 'src');
 const srcCore = $path.join(root, 'node_modules/@teqfw/core-app/src');
 container.addSourceMapping('TeqFw_Core_App', srcCore, true, 'mjs');
 container.addSourceMapping('Teq_User', srcCore, true, 'mjs');
-container.addSourceMapping('Vendor_Project', srcPrj, true, 'mjs');
+container.addSourceMapping('Fl32_Men2', srcPrj, true, 'mjs');
 // Manually create bootstrap configuration object (used in constructor of 'Vendor_Project_App')
 /** @type {Vendor_Project_App.Bootstrap} */
 const bootstrap = {version: VERSION, root};
 container.set('bootstrap', bootstrap);
 
 /** Request Container to construction app then run it */
-container.get('Vendor_Project_App$')
+container.get('Fl32_Men2_App$')
     .then(
-        /**  @param {Vendor_Project_App} app */
+        /**  @param {Fl32_Men2_App} app */
         async (app) => {
             try {
                 await app.init();
