@@ -20,7 +20,8 @@
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
     "start": "node ./bin/tequila.mjs core-server-start",
     "stop": "node ./bin/tequila.mjs core-server-stop",
-    "test": "./node_modules/mocha/bin/mocha --require esm --recursive './test/**/*.test.js'"
+    "test": "./node_modules/mocha/bin/mocha --require esm --recursive './test/**/*.test.js'",
+    "version": "node ./bin/tequila.mjs core-version"
   },
   "dependencies": {
     "@teqfw/core-app": "github:teqfw/core-app",
