@@ -175,6 +175,6 @@ function hndlEventFetch(evt) {
 }
 
 // setup event handlers in service worker scope
-self.addEventListener('install', hndlEventInstall);
-self.addEventListener('activate', hndlEventActivate);
+// self.addEventListener('install', hndlEventInstall);
+// self.addEventListener('activate', hndlEventActivate);
 self.addEventListener('fetch', hndlEventFetch);

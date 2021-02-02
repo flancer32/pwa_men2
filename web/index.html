@@ -16,12 +16,31 @@
              * @returns {Promise<TeqFw_Di_Container>}
              */
             async function initDiContainer() {
+
+                // DEFINE INNER FUNCTIONS
+                /**
+                 * @returns {Promise<TeqFw_Core_App_Shared_Api_Route_LoadNs_Response>}
+                 */
+                async function loadNamespaces() {
+                    // load frontend configuration and user profile
+                    const res = await fetch('./api/core/loadNs');
+                    const json = await res.json();
+                    return json.data;
+                }
+
+                // MAIN FUNCTIONALITY
                 const baseUrl = location.origin;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Container.mjs');
                 /** @type {TeqFw_Di_Container} */
                 const result = new modContainer.default();
-                // result.addSourceMapping('TeqFw_Core_App', baseUrl + '/node/@teqfw/core-app/', true, 'mjs');
+                const response = await loadNamespaces();
+                if (response && response.items) {
+                    for (const key of Object.keys(response.items)) {
+                        const item = response.items[key];
+                        result.addSourceMapping(item.ns, baseUrl + item.path, true, item.ext);
+                    }
+                }
                 return result;
             }
 
@@ -70,37 +89,20 @@
             try {
                 // initialize objects loader (Dependency Injection container)
                 const container = await initDiContainer();
-                // create 'teqfw' object in global scope and populate it with old-style loaded objects
-                self.teqfw = {};
-                self.teqfw.lib = {Vue: self.Vue, Vuex: self.Vuex, VueRouter: self.VueRouter};
-                // create vue application, load config, init router and i18n
-                self.teqfw.app = self.Vue.createApp({});
-                self.teqfw.config = await loadConfig();
-                self.teqfw.router = initRouter();
-                self.teqfw.i18next = await initI18n(self.teqfw.app);
-                // place application objects into DI-container
-                container.set('config', self.teqfw.config);
-                // setup Vuex store and place it into DI container.
-                /** @type {Fl32_Leana_Defaults} */
-                const DEF = await container.get('Fl32_Leana_Defaults$');  // singleton instance
-                /** @type {Fl32_Leana_Front_Desk_State} */
-                const state = await container.get('Fl32_Leana_Front_Desk_State$'); // singleton object
-                const store = self.Vuex.createStore(state);
-                container.set(DEF.DI_STORE, store);
-                self.teqfw.app.use(store);
-                // setup session (load user permissions from server)
-                /** @type {Fl32_Teq_Acl_Front_App_Session} */
-                const session = await container.get('Fl32_Teq_Acl_Front_App_Session$'); // singleton instance
-                session.setRouteToSignIn();
-                /** @type {Fl32_Teq_User_Defaults} */
-                const DEF_USER = await container.get('Fl32_Teq_User_Defaults$');
-                session.setRouteToSignIn(`/user${DEF_USER.ROUTE_SIGN_IN}`);
-                container.set(DEF_USER.DI_SESSION, session);    // TMP: put into container as singleton
-                await session.init();
-                // load root component and mount frontend application to DOM
-                const appRoot = await container.get('Fl32_Leana_Front_Desk_App$'); // singleton instance
-                self.teqfw.app.component('appRoot', appRoot);
-                self.teqfw.app.mount('BODY > DIV');
+                /** @type {Fl32_Men2_Defaults} */
+                const DEF = await container.get('Fl32_Men2_Defaults$');  // instance singleton
+                // load configuration from server and place it into DI container
+                // const config = await loadConfig();
+                // container.set(DEF.DI_CONFIG, config);
+                // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
+                // container.set(DEF.DI_VUE, self.Vue);
+                // container.set(DEF.DI_VUEX, self.Vuex);
+                // container.set(DEF.DI_VUE_ROUTER, self.VueRouter);
+                // create vue application, init router and i18n
+                const app = self.Vue.createApp({});
+                // const router = initRouter();
+                // const i18next = await initI18n(app);
+                app.mount('BODY > DIV');
             } catch (e) {
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);
             }
