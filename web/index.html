@@ -59,20 +59,23 @@
             }
 
             /**
-             * Initialize 'i18next' library to use internationalization.
+             * Initialize 'i18next' library to use internationalization and add translate function '$t' to Vue app's
+             * global properties.
              *
-             * @param {Object} app
-             * @returns {Promise<i18n>}
+             * @param {Object} app Vue application
+             * @param {Object} i18next
+             * @param {Function} i18nBld browser language detection function
+             * @returns {Promise<Object>}
              */
-            async function initI18n(app) {
-                self.i18next.use(self.i18nextBrowserLanguageDetector);
-                await self.i18next.init({});
+            async function initI18n(app, i18next, i18nBld) {
+                i18next.use(i18nBld);
+                await i18next.init({});
                 const appProps = app.config.globalProperties;
                 // arrow function uses current scope with 'self'
                 appProps.$t = (key, options) => {
-                    return self.i18next.t(key, options);
+                    return i18next.t(key, options);
                 };
-                return self.i18next;
+                return i18next;
             }
 
             /**
@@ -80,11 +83,27 @@
              *
              * @returns {*}
              */
-            function initRouter() {
-                return self.VueRouter.createRouter({
-                    history: self.VueRouter.createWebHashHistory(),
+            function initRouter(VueRouter) {
+                return VueRouter.createRouter({
+                    history: VueRouter.createWebHashHistory(),
                     routes: []
                 });
+            }
+
+            /**
+             * Init Vuex store and add it to Vue application.
+             *
+             * @param {Object} app
+             * @param {TeqFw_Di_Container} container
+             * @param {Fl32_Men2_Defaults} DEF
+             * @param {Object} Vuex
+             */
+            async function initVuex(app, container, DEF, Vuex) {
+                /** @type {Fl32_Men2_Front_State} */
+                const state = await container.get('Fl32_Men2_Front_State$'); // object singleton
+                const store = Vuex.createStore(state);
+                container.set(DEF.DI_STORE, store);
+                app.use(store);
             }
 
             // MAIN FUNCTIONALITY
@@ -97,17 +116,18 @@
                 const config = await loadConfig(container);
                 container.set(DEF.DI_CONFIG, config);
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
-                // container.set(DEF.DI_VUE, self.Vue);
-                // container.set(DEF.DI_VUEX, self.Vuex);
-                // container.set(DEF.DI_VUE_ROUTER, self.VueRouter);
+                container.set(DEF.DI_VUE, self.Vue);
+                container.set(DEF.DI_VUEX, self.Vuex);
+                container.set(DEF.DI_VUE_ROUTER, self.VueRouter);
                 // create vue application, init router and i18n
-                const app = self.Vue.createApp({
-                    data: function () {
-                        return {test: 'Hello from Vue!'}
-                    }
-                });
-                // const router = initRouter();
-                // const i18next = await initI18n(app);
+                const app = self.Vue.createApp({});
+                const router = initRouter(self.VueRouter);
+                const i18next = await initI18n(app, self.i18next, self.i18nextBrowserLanguageDetector);
+                await initVuex(app, container, DEF, self.Vuex);
+                // load root component and mount frontend application to DOM
+                const appRoot = await container.get('Fl32_Men2_Front_App$$');   // new component
+                app.component('appRoot', appRoot);
+                // mount Vue application to the page
                 app.mount('BODY > DIV');
             } catch (e) {
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);
@@ -148,7 +168,9 @@
     </script>
 </head>
 <body>
-<div>{{ test }}</div>
+<div>
+    <app-root></app-root>
+</div>
 <script type="application/javascript" src="./src/vue/vue.global.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.js"></script>
 <script type="application/javascript" src="./src/vuex/vuex.global.js"></script>
