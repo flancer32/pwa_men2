@@ -24,6 +24,7 @@
     "version": "node ./bin/tequila.mjs core-version"
   },
   "dependencies": {
+    "@flancer32/teq_user": "github:flancer32/teq_user",
     "@teqfw/core-app": "github:teqfw/core-app",
     "i18next": "*",
     "i18next-browser-languagedetector": "*",
