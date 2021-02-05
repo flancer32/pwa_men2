@@ -115,6 +115,7 @@
                 // load configuration from server and place it into DI container
                 const config = await loadConfig(container);
                 container.set(DEF.DI_CONFIG, config);
+                container.set('config', config); // TODO: for user module compatibility (need to change in future)
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
                 container.set(DEF.DI_VUE, self.Vue);
                 container.set(DEF.DI_VUEX, self.Vuex);
@@ -124,6 +125,11 @@
                 const router = initRouter(self.VueRouter);
                 const i18next = await initI18n(app, self.i18next, self.i18nextBrowserLanguageDetector);
                 await initVuex(app, container, DEF, self.Vuex);
+                // setup session (load user permissions from server)
+                /** @type {Fl32_Teq_User_Front_App_Session} */
+                const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // singleton instance
+                session.setRouteToSignIn('/user/sign/in');
+                await session.init();
                 // load root component and mount frontend application to DOM
                 const appRoot = await container.get('Fl32_Men2_Front_App$$');   // new component
                 app.component('appRoot', appRoot);
