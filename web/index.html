@@ -114,7 +114,7 @@
                 const DEF = await container.get('Fl32_Men2_Defaults$');  // instance singleton
                 // load configuration from server and place it into DI container
                 const config = await loadConfig(container);
-                container.set(DEF.DI_CONFIG, config);
+                container.set(DEF.MOD_CORE.DI_CONFIG, config);
                 container.set('config', config); // TODO: for user module compatibility (need to change in future)
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
                 container.set(DEF.DI_VUE, self.Vue);

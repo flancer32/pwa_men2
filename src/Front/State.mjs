@@ -5,6 +5,8 @@
  * @return {Object}
  */
 function Fl32_Men2_Front_State(spec) {
+    /** @type {Fl32_Teq_User_Front_State} */
+    const user = spec['Fl32_Teq_User_Front_State$'];   // singleton object
 
     return {
         namespaced: true,
@@ -12,7 +14,7 @@ function Fl32_Men2_Front_State(spec) {
             lang: 'en-US',
             title: 'TeqFW App',
         },
-        modules: {},
+        modules: {user},
     };
 }
 
