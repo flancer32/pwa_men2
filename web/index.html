@@ -70,8 +70,8 @@
             async function initI18n(app, i18next, i18nBld) {
                 i18next.use(i18nBld);
                 await i18next.init({});
+                // add '$t' translation function to Vue app
                 const appProps = app.config.globalProperties;
-                // arrow function uses current scope with 'self'
                 appProps.$t = (key, options) => {
                     return i18next.t(key, options);
                 };
@@ -179,6 +179,9 @@
 <div>
     <app-root></app-root>
 </div>
+<!-- load application styles -->
+<link rel="stylesheet" href="styles.css">
+<!-- These scripts are not ESM ready for loading with ES6 'import'. Use old style loading.  -->
 <script type="application/javascript" src="./src/vue/vue.global.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.js"></script>
 <script type="application/javascript" src="./src/vuex/vuex.global.js"></script>

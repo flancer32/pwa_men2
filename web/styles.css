@@ -1,0 +1,6 @@
+@import "../web/@teqfw/core-app/styles.css";
+@import "./css/vars.css";
+
+BODY {
+    background-color: var(--color-lightest);
+}

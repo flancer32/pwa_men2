@@ -1,0 +1,8 @@
+/* Define default values for CSS variables */
+:root {
+    --color-base: #66b032;
+    --color-darker: #375f1b;
+    --color-darkest: #1b3409;
+    --color-lighter: #9bd770;
+    --color-lightest: #ebf7e3;
+}

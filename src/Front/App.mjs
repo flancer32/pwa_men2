@@ -1,5 +1,5 @@
 const template = `
-<div>
+<layout-centered>
     <user-sign-in v-show="!isAuthenticated"
                   :data="signIn"
                   @onSuccess="onSuccess($event)"
@@ -11,7 +11,7 @@ const template = `
             :input="signUp"
         ></user-sign-up>
     </div>
-</div>
+</layout-centered>
 `;
 
 export default function Fl32_Men2_Front_App(spec) {
@@ -19,6 +19,8 @@ export default function Fl32_Men2_Front_App(spec) {
     const DEF = spec['Fl32_Men2_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
+    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
     const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Widget_SignUp} */
@@ -37,7 +39,7 @@ export default function Fl32_Men2_Front_App(spec) {
     return {
         name: 'FrontApp',
         template,
-        components: {userSignIn, userSignUp},
+        components: {layoutCentered, userSignIn, userSignUp},
         data: function () {
             return {
                 out: 'Fl32_Men2_Front_App',
