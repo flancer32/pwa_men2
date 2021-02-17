@@ -1,0 +1,15 @@
+:root {
+    --q-primary: var(--color-base);
+    --q-secondary: var(--color-lighter);
+    --q-accent: var(--color-base);
+    --q-positive: var(--color-lightest);
+    --q-negative: var(--color-darker);
+    --q-info: var(--color-base);
+    --q-warning: var(--color-base);
+    --q-dark: var(--color-darkest);
+    --q-dark-page: var(--color-darker);
+}
+
+.q-field__input, .q-field__native, .q-field__prefix, .q-field__suffix {
+    color: var(--color-base);
+}

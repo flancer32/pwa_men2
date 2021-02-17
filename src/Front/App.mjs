@@ -29,7 +29,8 @@ export default function Fl32_Men2_Front_App(spec) {
     /** @type {TeqFw_Core_App_Front_Widget_Form_Input} */
     const teqInput = spec['TeqFw_Core_App_Front_Widget_Form_Input$']; // Vue component singleton
     /** @type {TeqFw_Core_App_Front_Widget_Form_Button} */
-    const teqButton = spec['TeqFw_Core_App_Front_Widget_Form_Button$']; // Vue component singleton
+    // const teqButton = spec['TeqFw_Core_App_Front_Widget_Form_Button$']; // Vue component singleton
+    // const Quasar = spec[DEF.MOD_CORE.DI_QUASAR];
     /** @type {Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
     const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out_Request} */
@@ -42,6 +43,9 @@ export default function Fl32_Men2_Front_App(spec) {
     const mapState = spec[DEF.DI_VUEX].mapState;
 
     // register global components
+    // const {QBtn} = Quasar;
+    // app.component('QBtn', QBtn);
+    // app.component('TeqButton', QBtn);
     app.component('teqInput', teqInput);
 
     return {
