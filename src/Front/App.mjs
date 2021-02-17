@@ -19,12 +19,17 @@ export default function Fl32_Men2_Front_App(spec) {
     const DEF = spec['Fl32_Men2_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    const app = spec[DEF.MOD_CORE.DI_APP];  // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
     const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Widget_SignUp} */
     const userSignUp = spec['Fl32_Teq_User_Front_Widget_SignUp$'];  // Vue component singleton
+    /** @type {TeqFw_Core_App_Front_Widget_Form_Input} */
+    const teqInput = spec['TeqFw_Core_App_Front_Widget_Form_Input$']; // Vue component singleton
+    /** @type {TeqFw_Core_App_Front_Widget_Form_Button} */
+    const teqButton = spec['TeqFw_Core_App_Front_Widget_Form_Button$']; // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
     const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out_Request} */
@@ -36,10 +41,13 @@ export default function Fl32_Men2_Front_App(spec) {
     const mapMutations = spec[DEF.DI_VUEX].mapMutations;
     const mapState = spec[DEF.DI_VUEX].mapState;
 
+    // register global components
+    app.component('teqInput', teqInput);
+
     return {
         name: 'FrontApp',
         template,
-        components: {layoutCentered, userSignIn, userSignUp},
+        components: {teqInput, layoutCentered, userSignIn, userSignUp},
         data: function () {
             return {
                 out: 'Fl32_Men2_Front_App',
@@ -76,6 +84,7 @@ export default function Fl32_Men2_Front_App(spec) {
         mounted() {
             const user = session.getUser();
             this.setStateUserAuthenticated(user);
+            // this.signIn.user = 'Sign In User';
         },
     };
 }

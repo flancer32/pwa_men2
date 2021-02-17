@@ -124,6 +124,7 @@
                 const app = self.Vue.createApp({});
                 const router = initRouter(self.VueRouter);
                 const i18next = await initI18n(app, self.i18next, self.i18nextBrowserLanguageDetector);
+                container.set(DEF.MOD_CORE.DI_APP, app);
                 container.set(DEF.MOD_CORE.DI_I18N, i18next);
                 await initVuex(app, container, DEF, self.Vuex);
                 // setup session (load user permissions from server)

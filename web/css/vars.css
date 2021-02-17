@@ -1,4 +1,4 @@
-/* Define default values for CSS variables */
+/* Override CSS variables on project level */
 :root {
     --color-base: #66b032;
     --color-darker: #375f1b;
