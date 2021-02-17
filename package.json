@@ -26,6 +26,7 @@
   "dependencies": {
     "@flancer32/teq_user": "github:flancer32/teq_user",
     "@teqfw/core-app": "github:teqfw/core-app",
+    "@teqfw/http2": "github:teqfw/http2",
     "i18next": "*",
     "i18next-browser-languagedetector": "*",
     "marked": "*",
