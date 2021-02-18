@@ -1,5 +1,6 @@
 /**
  * Class to integrate plugin into TeqFW application.
+ * @extends TeqFw_Core_App_Plugin_Init_Base
  */
 export default class Fl32_Men2_Plugin_Init {
 
@@ -13,13 +14,6 @@ export default class Fl32_Men2_Plugin_Init {
             ];
         };
 
-        this.getHttp2StaticMaps = function () {
-            // TODO: what about wrong mapping? Perhaps, we need mapping below 'node_modules' folder:
-            // '/i18next-detect/' => '/i18next-browser-languagedetector/dist/umd/'
-            // and map as '$path.join(rootFs, 'node_modules', map[key])'
-            return {};
-        };
-
         /**
          * Realm for plugin's services in the integrated API.
          *
@@ -29,10 +23,5 @@ export default class Fl32_Men2_Plugin_Init {
             return DEF.BACK_REALM;
         };
 
-        this.getHttp2Services = function () {
-            return [];
-        };
     }
-
-
 }

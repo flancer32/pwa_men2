@@ -25,20 +25,7 @@
   },
   "dependencies": {
     "@flancer32/teq_user": "github:flancer32/teq_user",
-    "@teqfw/http2": "github:teqfw/http2",
-    "@teqfw/vue": "github:teqfw/vue",
-    "i18next": "*",
-    "i18next-browser-languagedetector": "*",
-    "marked": "*",
-    "mime-types": "*",
-    "mysql2": "*",
-    "node-fetch": "*",
-    "quasar": "^2.0.0-beta.5",
-    "sanitize-html": "*",
-    "serve-static": "*",
-    "vue": "^3.0.5",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.0-rc.2"
+    "mysql2": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
