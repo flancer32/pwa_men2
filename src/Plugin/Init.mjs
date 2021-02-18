@@ -25,7 +25,7 @@ export default class Fl32_Men2_Plugin_Init {
          *
          * @returns {String}
          */
-        this.getHttp2BackRealm = function () {
+        this.getServicesRealm = function () {
             return DEF.BACK_REALM;
         };
 
