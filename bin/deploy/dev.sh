@@ -23,6 +23,7 @@ git clone https://github.com/teqfw/di.git "${DIR_ROOT}/own_modules/@teqfw/di"
 git clone https://github.com/teqfw/core-app.git "${DIR_ROOT}/own_modules/@teqfw/core-app"
 git clone https://github.com/teqfw/http2.git "${DIR_ROOT}/own_modules/@teqfw/http2"
 git clone https://github.com/teqfw/vue.git "${DIR_ROOT}/own_modules/@teqfw/vue"
+git clone https://github.com/teqfw/ui-quasar.git "${DIR_ROOT}/own_modules/@teqfw/ui-quasar"
 git clone git@github.com:flancer32/teq_user.git "${DIR_ROOT}/own_modules/@flancer32/teq_user"
 
 echo "Link dependencies to '/usr/lib/node_modules/'."
@@ -34,6 +35,8 @@ cd "${DIR_ROOT}/own_modules/@teqfw/http2" || exit 255
 sudo npm link
 cd "${DIR_ROOT}/own_modules/@teqfw/vue" || exit 255
 sudo npm link
+cd "${DIR_ROOT}/own_modules/@teqfw/ui-quasar" || exit 255
+sudo npm link
 cd "${DIR_ROOT}/own_modules/@flancer32/teq_user" || exit 255
 sudo npm link
 
@@ -43,6 +46,7 @@ npm link "@teqfw/di" \
   "@teqfw/core-app" \
   "@teqfw/http2" \
   "@teqfw/vue" \
+  "@teqfw/ui-quasar" \
   "@flancer32/teq_user"
 
 echo "Done."
