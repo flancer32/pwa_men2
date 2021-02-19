@@ -1,5 +1,6 @@
 /* Override widgets styles on project level */
 
-.teqUserSignIn {
-    min-width: 100%;
+.layoutCentered {
+    min-height: calc(100vh - 50px);
+    min-width: 100vw;
 }
