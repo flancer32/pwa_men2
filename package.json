@@ -15,7 +15,7 @@
   },
   "repository": "github:vendor/project",
   "scripts": {
-    "db-upgrade": "node --experimental-modules ./bin/tequila.mjs db-schema-upgrade",
+    "db-upgrade": "node ./bin/tequila.mjs app-db-reset",
     "docs": "./node_modules/jsdoc/jsdoc.js --debug -p -c ./jsdoc.conf.json",
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
     "start": "node ./bin/tequila.mjs core-server-start",
