@@ -18,8 +18,8 @@
     "db-upgrade": "node ./bin/tequila.mjs app-db-reset",
     "docs": "./node_modules/jsdoc/jsdoc.js --debug -p -c ./jsdoc.conf.json",
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
-    "start": "node ./bin/tequila.mjs core-server-start",
-    "stop": "node ./bin/tequila.mjs core-server-stop",
+    "start": "node ./bin/tequila.mjs http2-start",
+    "stop": "node ./bin/tequila.mjs http2-stop",
     "test": "./node_modules/mocha/bin/mocha --require esm --recursive './test/**/*.test.js'",
     "version": "node ./bin/tequila.mjs core-version"
   },
